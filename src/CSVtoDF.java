@@ -17,8 +17,6 @@ public class CSVtoDF {
 //        Summary statistics and frequency tables
         myDF.summaryStatistics();
         myDF.univStats(2);
-        myDF.univStats(3);
-        myDF.univStats(4);
         myDF.freqCounts(5);
 
 //        Column access
