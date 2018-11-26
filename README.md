@@ -2,6 +2,8 @@
 Java framework to read CSV data into a Dataframe like object  
 Mimics some of the functionality of dataframes found in R and Python
 
+Dependencies: https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+
 Java files:
 - ReadCSV.java: reads in a comma delimited file and creates a 2d string array off of it
 - Dataframe.java - defines a dataframe object off of a 2d string array
