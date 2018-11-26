@@ -5,8 +5,8 @@ Mimics some of the functionality of dataframes found in R and Python
 Dependencies: https://mvnrepository.com/artifact/org.apache.commons/commons-math3
 
 Java files:
-- ReadCSV.java: reads in a comma delimited file and creates a 2d string array off of it
-- Dataframe.java - defines a dataframe object off of a 2d string array
+- ReadCSV.java: reads in a comma delimited file and creates a 2d string array from it
+- Dataframe.java - instantiates a dataframe object from a 2d string array
 - CSVtoDF.java - defines main method and shows example object calls
 
 Dataframe features:
