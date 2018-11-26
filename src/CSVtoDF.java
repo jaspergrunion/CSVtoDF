@@ -22,6 +22,7 @@ public class CSVtoDF {
 //        Column access
         myDF.printCol(7, 5);
         myDF.printCol(4, 3);
+        myDF.printCol(5, 12);
 
         System.out.println();
         double[] myNumCol = myDF.getNumCol(2);
