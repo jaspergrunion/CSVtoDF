@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class Dataframe {
 
-//    This is a comment
     private String[][] data;
     private int nrows;
     private int ncols;
