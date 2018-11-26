@@ -46,8 +46,8 @@ Pct25: 3.13
 Mean: 3.39
 Median: 3.395
 Pct75: 3.67
-Std Dev: 0.38
 Max: 4.0
+Std Dev: 0.38
 
 Frequency counts for 'status': {Active=196, Inactive=116, Other=88}
 
