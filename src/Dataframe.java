@@ -161,8 +161,8 @@ public class Dataframe {
         double myMean = descriptiveStatistics.getMean();
         double myMedian = descriptiveStatistics.getPercentile(50);
         double myPct75 = descriptiveStatistics.getPercentile(75);
-        double mySD = descriptiveStatistics.getStandardDeviation();
         double myMax = descriptiveStatistics.getMax();
+        double mySD = descriptiveStatistics.getStandardDeviation();
 
         System.out.println();
         System.out.println("Column: " + getColName(colnum));
@@ -174,8 +174,8 @@ public class Dataframe {
         System.out.println("Mean: " + String.format("%.2f", myMean));
         System.out.println("Median: " + myMedian);
         System.out.println("Pct75: " + myPct75);
-        System.out.println("Std Dev: " + String.format("%.2f", mySD));
         System.out.println("Max: " + myMax);
+        System.out.println("Std Dev: " + String.format("%.2f", mySD));
 
     }
 
