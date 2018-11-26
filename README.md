@@ -8,9 +8,9 @@ Java files:
 - CSVtoDF.java - defines main method and shows example object calls
 
 Dataframe features:
-- Columns scanned and defined either <num> or <str>
+- Columns scanned and defined either as string or numeric
 - Describe() shows data dimensions, column names, and prints first 5 rows
-- SummaryStats() will show univariate statistics for <num> columns, or a frequency table for <str> columns
+- SummaryStats() will show univariate statistics for numeric columns, or a frequency table for string columns
 - Columns can be accessed by column number
     
 Future functionality:
