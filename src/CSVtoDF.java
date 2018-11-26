@@ -21,6 +21,8 @@ public class CSVtoDF {
 
 //        Column access
         myDF.printCol(7, 5);
+
+        System.out.println();
         double[] myNumCol = myDF.getNumCol(2);
         System.out.println("Value of myNumCol at position 354: " + myNumCol[354]);
 
