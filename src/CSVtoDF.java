@@ -5,6 +5,7 @@ public class CSVtoDF {
 
 //        Read from csv file
         String fileref = "/Users/jlgunnin/Downloads/testfile.csv";
+//        String fileref = "/Users/jlgunnin/Dropbox/R/output/nfl.csv";
         String[][] rawDFmat = ReadCSV.getRawDF(fileref);
 
 //        Instantiate data frame object
@@ -16,7 +17,7 @@ public class CSVtoDF {
 
 //        Summary statistics and frequency tables
         myDF.summaryStatistics();
-        myDF.univStats(2);
+//        myDF.univStats(2);
         myDF.freqCounts(5);
 
 //        Column access
