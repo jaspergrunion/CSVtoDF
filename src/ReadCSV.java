@@ -14,7 +14,7 @@ public class ReadCSV {
             while ((line = br.readLine()) != null) {
                 String[] linelist = line.split(",");
                 for (int l = 0; l < linelist.length; l++) {
-                    linelist[l] = linelist[l].replace("\"", " ").trim();
+                    linelist[l] = linelist[l].replace("\"", "").trim();
                 }
                 rawDF.add(linelist);
             }
