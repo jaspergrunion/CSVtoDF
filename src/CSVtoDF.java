@@ -14,6 +14,8 @@ public class CSVtoDF {
 //        Dataframe describe and print methods
         myDF.describe();
         myDF.printData(7);
+        myDF.getNames();
+        myDF.getDim();
 
 //        Summary statistics and frequency tables
         myDF.summaryStatistics();
