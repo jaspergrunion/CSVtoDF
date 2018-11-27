@@ -204,7 +204,6 @@ public class Dataframe {
                 univStats(c);
             }
             else {
-                System.out.println();
                 freqCounts(c);
             }
         }
