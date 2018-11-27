@@ -30,7 +30,7 @@ public class CSVtoDF {
         System.out.println("Value of myNumCol at position 354: " + myNumCol[354]);
 
         String[] myStrCol = myDF.getStrCol(5);
-        System.out.println("Value of myStrCol at position 123: " + myStrCol[156]);
+        System.out.println("Value of myStrCol at position 123: " + myStrCol[123]);
 
     }
 
