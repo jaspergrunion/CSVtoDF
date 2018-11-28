@@ -21,6 +21,8 @@ Future functionality:
 - Grouping operations in summary
 
 ```
+myDF.describe();
+
 Dataframe with 400 rows and 8 columns
 Column names: [id, admit, gre, gpa, rank, status, gender, date]
 
@@ -36,6 +38,8 @@ id                  admit               gre                 gpa                 
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          
 
+myDF.univStats("gpa");
+
 Column: gpa
 Type: num
 N: 400.0
@@ -48,7 +52,11 @@ Pct75: 3.67
 Max: 4.0
 Std Dev: 0.38
 
+myDF.freqCounts("gender");
+
 Frequency counts for 'gender': {Male=240, Female=160}
+
+myDF.printCol("gpa", 5);
 
 gpa
 <num>
@@ -60,7 +68,13 @@ gpa
 3.19
 2.93
 
+double[] gpa = myDF.getNumCol("gpa");
+System.out.println("Value of gpa at position 123: " + gpa[123]);
+        
 Value of gpa at position 123: 2.98
+
+String[] status = myDF.getStrCol("status");
+System.out.println("Value of status at position 354: " + status[354]);
 
 Value of status at position 354: Active
 ```
