@@ -48,7 +48,6 @@ public class Dataframe {
         int haschar = 0;
         for (int i = 0; i < tempCol.length ; i++) {
 
-//            if(!(tempCol[i].matches("^-[0-9.]+"))) {
             if(!(tempCol[i].matches("^[-+]?[0-9]*\\.?[0-9]+$"))) {
                 anychar[i] = 1;
                 haschar += anychar[i];
