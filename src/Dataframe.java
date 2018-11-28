@@ -1,19 +1,23 @@
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Dataframe {
 
+    // Declare object data types
     private String[][] data;
     private int nrows;
     private int ncols;
     private String[] names;
     private String[] coltypes;
 
+    // Initialize object
     public Dataframe(String[][] dataraw) {
         this.nrows = dataraw.length - 1;
         this.ncols = dataraw[0].length;
-        this.names = Arrays.copyOfRange(dataraw[0], 0, this.ncols);
+        this.names = new String[this.ncols];
+        for (int c = 0; c < this.ncols; c++) {
+            this.names[c] = dataraw[0][c];
+        }
         this.data = new String[this.nrows][this.ncols];
         for (int r = 1; r < this.nrows + 1; r++) {
             for (int c = 0; c < this.ncols; c++) {
@@ -26,12 +30,14 @@ public class Dataframe {
         }
     }
 
+    // Get a column's name given its column number
     private String getColName(int colnum){
         String resultName = "";
         resultName = this.names[colnum];
         return resultName;
     }
 
+    // Get a column's type given its column number
     private String getColType(int colnum){
         String[] tempCol = new String[this.nrows];
         for (int r = 0; r < nrows; r++) {
@@ -41,7 +47,9 @@ public class Dataframe {
         int[] anychar = new int[tempCol.length];
         int haschar = 0;
         for (int i = 0; i < tempCol.length ; i++) {
-            if(!(tempCol[i].matches("[0-9.-]+"))) {
+
+//            if(!(tempCol[i].matches("^-[0-9.]+"))) {
+            if(!(tempCol[i].matches("^[-+]?[0-9]*\\.?[0-9]+$"))) {
                 anychar[i] = 1;
                 haschar += anychar[i];
             }
@@ -55,6 +63,18 @@ public class Dataframe {
         return resultColType;
     }
 
+    // Get a column's number given its name
+    private int colNumFromName(String colname){
+        int resultColNum = -1;
+        for (int i = 0; i < this.ncols ; i++) {
+            if (this.names[i].equals(colname)){
+                resultColNum = i;
+            }
+        }
+        return resultColNum;
+    }
+
+    // Retrieve a string column by column number or name
     public String[] getStrCol(int colnum){
         String[] resultCol = new String[this.nrows];
         for (int r = 0; r < nrows; r++) {
@@ -63,6 +83,16 @@ public class Dataframe {
         return resultCol;
     }
 
+    public String[] getStrCol(String colname){
+        String[] resultCol = new String[this.nrows];
+        int colnum = colNumFromName(colname);
+        for (int r = 0; r < nrows; r++) {
+            resultCol[r] = this.data[r][colnum];
+        }
+        return resultCol;
+    }
+
+    // Retrieve a numeric column by column number or name
     public double[] getNumCol(int colnum){
         double[] resultCol = new double[this.nrows];
         for (int r = 0; r < nrows; r++) {
@@ -71,17 +101,28 @@ public class Dataframe {
         return resultCol;
     }
 
-    public String[][] getData() {
-        return this.data;
+    public double[] getNumCol(String colname){
+        double[] resultCol = new double[this.nrows];
+        int colnum = colNumFromName(colname);
+        for (int r = 0; r < nrows; r++) {
+            resultCol[r] = Double.valueOf(this.data[r][colnum]);
+        }
+        return resultCol;
     }
 
+    // Return number of rows
     public int getNrows(){ return this.nrows; }
 
+    // Return number of columns
     public int getNcols(){ return this.ncols; }
 
-    public void getDim(){ System.out.println("Dim: [" + this.nrows + ", " + this.ncols + "]"); }
+    // Return array of names
+    public String[] getNames(){
+        return this.names;
+    }
 
-    public void getNames(){
+    // Get names in pretty format
+    private void getNamesPretty(){
         System.out.print("Column names: [");
         for (int c = 0; c < this.ncols; c++) {
             if (c < (this.ncols - 1)) {
@@ -93,14 +134,18 @@ public class Dataframe {
         System.out.println();
     }
 
+    // Describe dataframe
     public void describe() {
         System.out.println("Dataframe with " + this.nrows + " rows and " + this.ncols + " columns");
-        getNames();
+        getNamesPretty();
         System.out.println();
         printData(5);
     }
 
-    public void printData() { printData(this.nrows); }
+    // Prints rows of data
+    public void printData() {
+        printData(this.nrows);
+    }
 
     public void printData(int rows){
         System.out.println("First " + rows +  " rows:");
@@ -130,8 +175,19 @@ public class Dataframe {
         }
     }
 
+    // Print a column by column number or name
     public void printCol(int colnum) {
         printCol(colnum, this.nrows);
+    }
+
+    public void printCol(String colname) {
+        int colnum = colNumFromName(colname);
+        printCol(colnum, this.nrows);
+    }
+
+    public void printCol(String colname, int nrows){
+        int colnum = colNumFromName(colname);
+        printCol(colnum, nrows);
     }
 
     public void printCol(int colnum, int nrows) {
@@ -144,6 +200,12 @@ public class Dataframe {
         for (int r = 0; r < nrows; r++) {
             System.out.println(this.data[r][colnum]);
         }
+    }
+
+    // Generate univariate stats by column number or name
+    public void univStats(String colname){
+        int colnum = colNumFromName(colname);
+        univStats(colnum);
     }
 
     public void univStats(int colnum){
@@ -179,6 +241,12 @@ public class Dataframe {
 
     }
 
+    // Generate frequency counts by column number or name
+    public void freqCounts(String colname){
+        int colnum = colNumFromName(colname);
+        freqCounts(colnum);
+    }
+
     public void freqCounts(int colnum){
         String[] inputArray = getStrCol(colnum);
         HashMap<String, Integer> elementCountMap = new HashMap<String, Integer>();
@@ -197,10 +265,11 @@ public class Dataframe {
         System.out.println("Frequency counts for '" + getColName(colnum) + "': " + elementCountMap);
     }
 
+    // Print either univariate stats or frequency counts for every column in data
     public void summaryStatistics() {
         for (int c = 0; c < this.ncols; c++) {
 
-            if (getColType(c) == "num") {
+            if (getColType(c).equals("num")) {
                 univStats(c);
             }
             else {

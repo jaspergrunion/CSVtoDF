@@ -7,7 +7,7 @@ public class ReadCSV {
 
     public static String[][] getRawDF(String fileref) {
 
-        ArrayList<String[]> rawDF = new ArrayList<String[]>();
+        ArrayList<String[]> rawDF = new ArrayList<>();
 
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(fileref))) {
