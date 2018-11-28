@@ -5,7 +5,6 @@ public class CSVtoDF {
 
         // Read from csv file
         String fileref = "/Users/jlgunnin/Downloads/testfile.csv";
-//        String fileref = "/Users/jlgunnin/Dropbox/R/output/nfl.csv";
         String[][] rawDFmat = ReadCSV.getRawDF(fileref);
 
         // Instantiate data frame object
