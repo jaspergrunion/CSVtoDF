@@ -35,7 +35,7 @@ public class CSVtoDF {
         // Extract a date column
         LocalDate[] date = myDF.getDateCol("date", "yyyy-MM-dd");
 
-        // Scatterplot using JFreeChart
+        // Scatterplot of x vs y
         myDF.scatterPlot("gre", "gpa");
         myDF.scatterPlot("gre", "rank");
 
