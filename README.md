@@ -2,7 +2,9 @@
 Java framework to read CSV data into a Dataframe like object  
 Mimics some of the functionality of dataframes found in R and Python
 
-Dependencies: https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+Dependencies: 
+- https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+- https://mvnrepository.com/artifact/org.jfree/jfreechart
 
 Java files:
 - ReadCSV.java: reads in a comma delimited file and creates a 2d string array from it
@@ -14,9 +16,11 @@ Dataframe features:
 - Describe() shows data dimensions, column names, and prints first 5 rows
 - SummaryStats() will show univariate statistics for numeric columns, or a frequency table for string columns
 - Columns can be accessed by column name or number
+- Date columns can be extracted based on format string
+- Can generate xy scatterplots
+- Can generate a time series plot given a date column and a numeric column
     
 Future functionality:
-- Add date field type
 - Create new column from transformation of existing columns and add to data frame
 - Grouping operations in summary
 
@@ -77,4 +81,13 @@ String[] status = myDF.getStrCol("status");
 System.out.println("Value of status at position 354: " + status[354]);
 
 Value of status at position 354: Active
+
+LocalDate[] date = myDF.getDateCol("date", "yyyy-MM-dd");
+
+myDF.scatterPlot("gre", "gpa");
+myDF.scatterPlot("gre", "rank");
+
+myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
+myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
+
 ```
