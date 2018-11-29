@@ -11,7 +11,6 @@ public class CSVtoDF {
         // Instantiate data frame object
         Dataframe myDF = new Dataframe(rawDFmat);
 
-
         // Dataframe describe and print methods
         myDF.describe();
 

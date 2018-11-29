@@ -48,14 +48,14 @@ public class Dataframe {
         }
     }
 
-    // Get a column's name given its column number
+    // Get a column name given its column number
     private String getColName(int colnum){
         String resultName = "";
         resultName = this.names[colnum];
         return resultName;
     }
 
-    // Get a column's type given its column number
+    // Get a column type given its column number
     private String getColType(int colnum){
         String[] tempCol = new String[this.nrows];
         for (int r = 0; r < nrows; r++) {
@@ -80,7 +80,7 @@ public class Dataframe {
         return resultColType;
     }
 
-    // Get a column's number given its name
+    // Get a column number given its name
     private int colNumFromName(String colname){
         int resultColNum = -1;
         for (int i = 0; i < this.ncols ; i++) {
@@ -127,7 +127,7 @@ public class Dataframe {
         return resultCol;
     }
 
-    // Retrieve a date column in proper format by column number or name
+    // Retrieve a date column with specified format by column number or name
     public LocalDate[] getDateCol(int colnum, String fmt){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fmt);
         LocalDate[] resultCol = new LocalDate[this.nrows];
@@ -239,7 +239,7 @@ public class Dataframe {
         }
     }
 
-    // Generate univariate stats by column number or name
+    // Generate univariate statistics by column number or name
     public void univStats(String colname){
         int colnum = colNumFromName(colname);
         univStats(colnum);
@@ -355,6 +355,7 @@ public class Dataframe {
         Date[] xcol = new Date[xcol_ld.length];
         double[] ycol = getNumCol(y);
 
+        // Convert from LocalDate[] to Date[] for compatibility with JFreeChart
         for (int i = 0; i < xcol_ld.length; i++) {
             xcol[i] = java.sql.Date.valueOf(xcol_ld[i]);
         }
