@@ -25,6 +25,14 @@ Future functionality:
 - Grouping operations in summary
 
 ```
+// Read from csv file
+String fileref = "/Users/jlgunnin/Downloads/testfile.csv";
+String[][] rawDFmat = ReadCSV.getRawDF(fileref);
+
+// Instantiate data frame object
+Dataframe myDF = new Dataframe(rawDFmat);
+
+// Dataframe describe and print methods
 myDF.describe();
 
 Dataframe with 400 rows and 8 columns
@@ -42,6 +50,11 @@ id                  admit               gre                 gpa                 
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          
 
+// Summary statistics and frequency tables
+// Produce output for all columns 
+myDF.summaryStatistics(); 
+
+// Produce output for select columns
 myDF.univStats("gpa");
 
 Column: gpa
@@ -60,6 +73,7 @@ myDF.freqCounts("gender");
 
 Frequency counts for 'gender': {Male=240, Female=160}
 
+// Column printing
 myDF.printCol("gpa", 5);
 
 gpa
@@ -72,21 +86,26 @@ gpa
 3.19
 2.93
 
+// Numeric column access
 double[] gpa = myDF.getNumCol("gpa");
 System.out.println("Value of gpa at position 123: " + gpa[123]);
         
 Value of gpa at position 123: 2.98
 
+// String column access
 String[] status = myDF.getStrCol("status");
 System.out.println("Value of status at position 354: " + status[354]);
 
 Value of status at position 354: Active
 
+// Date column access
 LocalDate[] date = myDF.getDateCol("date", "yyyy-MM-dd");
 
+// Scatter plots
 myDF.scatterPlot("gre", "gpa");
 myDF.scatterPlot("gre", "rank");
 
+// Time series plots
 myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
 myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
 
