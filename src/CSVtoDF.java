@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 
 public class CSVtoDF {
 
@@ -9,6 +10,7 @@ public class CSVtoDF {
 
         // Instantiate data frame object
         Dataframe myDF = new Dataframe(rawDFmat);
+
 
         // Dataframe describe and print methods
         myDF.describe();
@@ -29,6 +31,18 @@ public class CSVtoDF {
         System.out.println();
         String[] status = myDF.getStrCol("status");
         System.out.println("Value of status at position 354: " + status[354]);
+
+        // Extract a date column
+        LocalDate[] date = myDF.getDateCol("date", "yyyy-MM-dd");
+
+        // Scatterplot using JFreeChart
+        myDF.scatterPlot("gre", "gpa");
+        myDF.scatterPlot("gre", "rank");
+
+        // Time series plot of a numeric column
+        myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
+        myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
+
     }
 
 }

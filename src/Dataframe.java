@@ -1,5 +1,23 @@
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYShapeRenderer;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
+
+import static java.awt.Color.BLACK;
 
 public class Dataframe {
 
@@ -105,6 +123,26 @@ public class Dataframe {
         int colnum = colNumFromName(colname);
         for (int r = 0; r < nrows; r++) {
             resultCol[r] = Double.valueOf(this.data[r][colnum]);
+        }
+        return resultCol;
+    }
+
+    // Retrieve a date column in proper format by column number or name
+    public LocalDate[] getDateCol(int colnum, String fmt){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fmt);
+        LocalDate[] resultCol = new LocalDate[this.nrows];
+        for (int r = 0; r < nrows; r++) {
+            resultCol[r] = LocalDate.parse(this.data[r][colnum], formatter);
+        }
+        return resultCol;
+    }
+
+    public LocalDate[] getDateCol(String colname, String fmt){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fmt);
+        LocalDate[] resultCol = new LocalDate[this.nrows];
+        int colnum = colNumFromName(colname);
+        for (int r = 0; r < nrows; r++) {
+            resultCol[r] = LocalDate.parse(this.data[r][colnum], formatter);
         }
         return resultCol;
     }
@@ -276,5 +314,75 @@ public class Dataframe {
             }
         }
     }
+
+    // Create an xy scatter plot
+    public void scatterPlot(String x, String y){
+
+        String plotTitle = x.toUpperCase() + " vs " + y.toUpperCase();
+        double[] xcol = getNumCol(x);
+        double[] ycol = getNumCol(y);
+
+        XYSeries series = new XYSeries("Scatter");
+        XYSeriesCollection data = new XYSeriesCollection(series);
+        for (int i = 0; i < xcol.length; i++) {
+            series.add(xcol[i], ycol[i]);
+        }
+
+        final JFreeChart chart = ChartFactory.createScatterPlot(
+                plotTitle,
+                x.toUpperCase(),
+                y.toUpperCase(),
+                data,
+                PlotOrientation.VERTICAL,
+                false,
+                true,
+                false
+        );
+        XYPlot plot = chart.getXYPlot();
+        XYShapeRenderer renderer = new XYShapeRenderer();
+        plot.setRenderer(renderer);
+        renderer.setSeriesPaint(0, BLACK);
+        ChartFrame frame = new ChartFrame(null, chart);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+
+    // Create a time series plot for a numeric column
+    public void timeSeriesPlot(String d, String fmt, String y) {
+        String plotTitle = "Time Series Plot of " + y.toUpperCase();
+        LocalDate[] xcol_ld = getDateCol(d, fmt);
+        Date[] xcol = new Date[xcol_ld.length];
+        double[] ycol = getNumCol(y);
+
+        for (int i = 0; i < xcol_ld.length; i++) {
+            xcol[i] = java.sql.Date.valueOf(xcol_ld[i]);
+        }
+
+        TimeSeries series = new TimeSeries("Time Series");
+        TimeSeriesCollection data = new TimeSeriesCollection(series);
+        for (int i = 0; i < xcol.length; i++) {
+            series.add(new Day(xcol[i]), ycol[i]);
+        }
+        final JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                plotTitle,
+                d.toUpperCase(),
+                y.toUpperCase(),
+                data,
+                false,
+                true,
+                false
+        );
+        XYPlot plot = chart.getXYPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        plot.setRenderer(renderer);
+        renderer.setSeriesPaint(0, BLACK);
+        renderer.setDefaultShapesVisible(false);
+        ChartFrame frame = new ChartFrame(null, chart);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+
 }
 
