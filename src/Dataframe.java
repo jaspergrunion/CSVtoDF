@@ -12,8 +12,8 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -128,21 +128,29 @@ public class Dataframe {
     }
 
     // Retrieve a date column with specified format by column number or name
-    public LocalDate[] getDateCol(int colnum, String fmt){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fmt);
-        LocalDate[] resultCol = new LocalDate[this.nrows];
+    public Date[] getDateCol(int colnum, String fmt){
+        Date[] resultCol = new Date[this.nrows];
+        SimpleDateFormat formatter = new SimpleDateFormat(fmt);
         for (int r = 0; r < nrows; r++) {
-            resultCol[r] = LocalDate.parse(this.data[r][colnum], formatter);
+            try {
+                resultCol[r] = formatter.parse(this.data[r][colnum]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return resultCol;
     }
 
-    public LocalDate[] getDateCol(String colname, String fmt){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fmt);
-        LocalDate[] resultCol = new LocalDate[this.nrows];
+    public Date[] getDateCol(String colname, String fmt){
+        Date[] resultCol = new Date[this.nrows];
+        SimpleDateFormat formatter = new SimpleDateFormat(fmt);
         int colnum = colNumFromName(colname);
         for (int r = 0; r < nrows; r++) {
-            resultCol[r] = LocalDate.parse(this.data[r][colnum], formatter);
+            try {
+                resultCol[r] = formatter.parse(this.data[r][colnum]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         return resultCol;
     }
@@ -351,14 +359,8 @@ public class Dataframe {
     // Create a time series plot for a numeric column
     public void timeSeriesPlot(String d, String fmt, String y) {
         String plotTitle = "Time Series Plot of " + y.toUpperCase();
-        LocalDate[] xcol_ld = getDateCol(d, fmt);
-        Date[] xcol = new Date[xcol_ld.length];
+        Date[] xcol = getDateCol(d, fmt);
         double[] ycol = getNumCol(y);
-
-        // Convert from LocalDate[] to Date[] for compatibility with JFreeChart
-        for (int i = 0; i < xcol_ld.length; i++) {
-            xcol[i] = java.sql.Date.valueOf(xcol_ld[i]);
-        }
 
         TimeSeries series = new TimeSeries("Time Series");
         TimeSeriesCollection data = new TimeSeriesCollection(series);

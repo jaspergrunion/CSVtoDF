@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.util.Date;
 
 public class CSVtoDF {
 
@@ -31,8 +31,8 @@ public class CSVtoDF {
         String[] status = myDF.getStrCol("status");
         System.out.println("Value of status at position 354: " + status[354]);
 
-        // Extract a date column
-        LocalDate[] date = myDF.getDateCol("date", "yyyy-MM-dd");
+        // Extract a date column and print
+        Date[] date = myDF.getDateCol("date", "yyyy-MM-dd");
 
         // Scatterplot of x vs y
         myDF.scatterPlot("gre", "gpa");
@@ -41,6 +41,17 @@ public class CSVtoDF {
         // Time series plot of a numeric column
         myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
         myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
+
+//        double[] gpa2 = new double[myDF.getNrows()];
+//        for (int i = 0; i < myDF.getNrows() ; i++) {
+//            gpa2[i] = gpa[i] * 2;
+//        }
+//
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println();
+//            System.out.println(gpa[i]);
+//            System.out.println(gpa2[i]);
+//        }
 
     }
 
