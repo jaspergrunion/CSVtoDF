@@ -109,4 +109,57 @@ myDF.scatterPlot("gre", "rank");
 myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
 myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
 
+// Add column which is the uppercase of the status column
+String[] status2 = new String[myDF.getNrows()];
+for (int r = 0; r < myDF.getNrows(); r++) {
+    status2[r] = status[r].toUpperCase();
+}
+Dataframe newDF = myDF.addCol(status2, "status2");
+System.out.println();
+newDF.describe();
+
+Dataframe with 400 rows and 9 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date, status2]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                status2             
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 [8]                 
+
+1                   0                   380                 3.61                3                   Active              Male                2011-01-01          ACTIVE              
+2                   1                   660                 3.67                3                   Inactive            Female              2011-01-08          INACTIVE            
+3                   1                   800                 4                   1                   Other               Male                2011-01-15          OTHER               
+4                   1                   640                 3.19                4                   Active              Male                2011-01-22          ACTIVE              
+5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE 
+
+// Add column which is gre squared and then graph
+double[] gre = myDF.getNumCol("gre");
+double[] gre2 = new double[myDF.getNrows()];
+for (int r = 0; r < myDF.getNrows(); r++) {
+    gre2[r] = Math.pow(gre[r], 2);
+}
+Dataframe newDF2 = newDF.addCol(gre2, "gre2");
+System.out.println();
+newDF2.describe();
+
+newDF2.scatterPlot("gre", "gre2");
+
+Dataframe with 400 rows and 10 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date, status2, gre2]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                status2             gre2                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               <str>               <num>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 [8]                 [9]                 
+
+1                   0                   380                 3.61                3                   Active              Male                2011-01-01          ACTIVE              144400.0            
+2                   1                   660                 3.67                3                   Inactive            Female              2011-01-08          INACTIVE            435600.0            
+3                   1                   800                 4                   1                   Other               Male                2011-01-15          OTHER               640000.0            
+4                   1                   640                 3.19                4                   Active              Male                2011-01-22          ACTIVE              409600.0            
+5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE            270400.0            
+
+
+
 ```
