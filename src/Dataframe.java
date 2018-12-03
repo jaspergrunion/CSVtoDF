@@ -22,6 +22,7 @@ import static java.awt.Color.BLACK;
 public class Dataframe {
 
     // Declare object data types
+    private String[][] dataraw;
     private String[][] data;
     private int nrows;
     private int ncols;
@@ -30,6 +31,7 @@ public class Dataframe {
 
     // Initialize object
     public Dataframe(String[][] dataraw) {
+        this.dataraw = dataraw;
         this.nrows = dataraw.length - 1;
         this.ncols = dataraw[0].length;
         this.names = new String[this.ncols];
@@ -48,8 +50,46 @@ public class Dataframe {
         }
     }
 
+    public Dataframe addCol(String[] colToAdd, String colName){
+        String[][] newdataraw = new String[this.nrows + 1][this.ncols + 1];
+        for (int r = 0; r < this.nrows + 1; r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                newdataraw[r][c] = this.dataraw[r][c];
+            }
+        }
+        newdataraw[0][this.ncols] = colName;
+        for (int r = 1; r < this.nrows + 1; r++) {
+            newdataraw[r][this.ncols] = colToAdd[r-1];
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
+    public Dataframe addCol(double[] colToAdd, String colName){
+        String[] colToAddStr = new String[this.nrows];
+        for (int r = 0; r < this.nrows; r++) {
+            colToAddStr[r] = String.valueOf(colToAdd[r]);
+        }
+        String[][] newdataraw = new String[this.nrows + 1][this.ncols + 1];
+        for (int r = 0; r < this.nrows + 1; r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                newdataraw[r][c] = this.dataraw[r][c];
+            }
+        }
+        newdataraw[0][this.ncols] = colName;
+        for (int r = 1; r < this.nrows + 1; r++) {
+            newdataraw[r][this.ncols] = colToAddStr[r-1];
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
     public String[][] getData(){
         return this.data;
+    }
+
+    public String[][] getDataRaw(){
+        return this.dataraw;
     }
 
     // Get a column name given its column number

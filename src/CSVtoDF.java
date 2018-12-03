@@ -42,6 +42,27 @@ public class CSVtoDF {
         myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
         myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
 
+        // Add column which is the uppercase of the status column
+        String[] status2 = new String[myDF.getNrows()];
+        for (int r = 0; r < myDF.getNrows(); r++) {
+            status2[r] = status[r].toUpperCase();
+        }
+        Dataframe newDF = myDF.addCol(status2, "status2");
+        System.out.println();
+        newDF.describe();
+
+        // Add column which is gre to the power of 5 and then graph
+        double[] gre = myDF.getNumCol("gre");
+        double[] gre2 = new double[myDF.getNrows()];
+        for (int r = 0; r < myDF.getNrows(); r++) {
+            gre2[r] = Math.pow(gre[r], 5);
+        }
+        Dataframe newDF2 = newDF.addCol(gre2, "gre2");
+        System.out.println();
+        newDF2.describe();
+
+        newDF2.scatterPlot("gre", "gre2");
+
     }
 
 }
