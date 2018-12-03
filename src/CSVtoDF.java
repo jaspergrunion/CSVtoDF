@@ -51,11 +51,11 @@ public class CSVtoDF {
         System.out.println();
         newDF.describe();
 
-        // Add column which is gre to the power of 5 and then graph
+        // Add column which is gre squared and then graph
         double[] gre = myDF.getNumCol("gre");
         double[] gre2 = new double[myDF.getNrows()];
         for (int r = 0; r < myDF.getNrows(); r++) {
-            gre2[r] = Math.pow(gre[r], 5);
+            gre2[r] = Math.pow(gre[r], 2);
         }
         Dataframe newDF2 = newDF.addCol(gre2, "gre2");
         System.out.println();
