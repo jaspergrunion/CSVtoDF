@@ -48,6 +48,10 @@ public class Dataframe {
         }
     }
 
+    public String[][] getData(){
+        return this.data;
+    }
+
     // Get a column name given its column number
     private String getColName(int colnum){
         String resultName = "";

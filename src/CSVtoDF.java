@@ -42,17 +42,6 @@ public class CSVtoDF {
         myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
         myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
 
-//        double[] gpa2 = new double[myDF.getNrows()];
-//        for (int i = 0; i < myDF.getNrows() ; i++) {
-//            gpa2[i] = gpa[i] * 2;
-//        }
-//
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println();
-//            System.out.println(gpa[i]);
-//            System.out.println(gpa2[i]);
-//        }
-
     }
 
 }
