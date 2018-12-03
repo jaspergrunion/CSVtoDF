@@ -19,9 +19,9 @@ Dataframe features:
 - Date columns can be extracted based on format string
 - Can generate xy scatterplots
 - Can generate a time series plot given a date column and a numeric column
+- Can create new column from transformation of existing columns and add to data frame
     
 Future functionality:
-- Create new column from transformation of existing columns and add to data frame
 - Grouping operations in summary
 
 ```
