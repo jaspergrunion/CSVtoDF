@@ -99,7 +99,7 @@ System.out.println("Value of status at position 354: " + status[354]);
 Value of status at position 354: Active
 
 // Date column access
-LocalDate[] date = myDF.getDateCol("date", "yyyy-MM-dd");
+Date[] date = myDF.getDateCol("date", "yyyy-MM-dd");
 
 // Scatter plots
 myDF.scatterPlot("gre", "gpa");
