@@ -22,7 +22,8 @@ Dataframe features:
 - Can create new column from transformation of existing columns and add to data frame
     
 Future functionality:
-- Grouping operations in summary
+- Filtering
+- Aggregation by groups
 
 ```
 // Read from csv file
