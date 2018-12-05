@@ -17,7 +17,7 @@ Dataframe features:
 - SummaryStats() will show univariate statistics for numeric columns, or a frequency table for string columns
 - Columns can be accessed by column name or number
 - Date columns can be extracted based on format string
-- Can generate xy scatterplots
+- Can generate an x vs y scatterplot of two numeric columns
 - Can generate a time series plot given a date column and a numeric column
 - Can create new column from transformation of existing columns and add to data frame
 - Can slice a dataframe by rows using startrow and endrow parameters
@@ -140,7 +140,6 @@ for (int r = 0; r < myDF.getNrows(); r++) {
 }
 Dataframe newDF2 = newDF.addCol(gre2, "gre2");
 newDF2.describe();
-
 newDF2.scatterPlot("gre", "gre2");
 
 Dataframe with 400 rows and 10 columns
