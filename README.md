@@ -33,7 +33,7 @@ String[][] rawDFmat = ReadCSV.getRawDF(fileref);
 // Instantiate data frame object
 Dataframe myDF = new Dataframe(rawDFmat);
 
-// Dataframe describe and print methods
+// Dataframe describe and print method
 myDF.describe();
 
 Dataframe with 400 rows and 8 columns
