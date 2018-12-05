@@ -166,7 +166,7 @@ public class Dataframe {
         return ans;
     }
 
-    public Boolean compareValsString(String a, String oper, String b){
+    private Boolean compareValsString(String a, String oper, String b){
         Boolean ans = false;
         if (oper.equals("==") || oper.equals("=")){
             ans = (a.equals(b));
