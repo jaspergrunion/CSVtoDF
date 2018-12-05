@@ -20,8 +20,9 @@ Dataframe features:
 - Can generate xy scatterplots
 - Can generate a time series plot given a date column and a numeric column
 - Can create new column from transformation of existing columns and add to data frame
-- Can slice rows of df with rowstart and rowend
-- Can filter rows by values of string columns    
+- Can slice a dataframe by rows using startrow and endrow parameters
+- Can filter a dataframe by string column values
+- Can filter a dataframe by numeric columns with operators
 
 ```
 // Read from csv file
@@ -49,8 +50,7 @@ id                  admit               gre                 gpa                 
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          
 
-// Summary statistics and frequency tables
-// Produce output for all columns 
+// Summary statistics and frequency tables for all columns - output redacted
 myDF.summaryStatistics(); 
 
 // Produce output for select columns
@@ -139,7 +139,6 @@ for (int r = 0; r < myDF.getNrows(); r++) {
     gre2[r] = Math.pow(gre[r], 2);
 }
 Dataframe newDF2 = newDF.addCol(gre2, "gre2");
-System.out.println();
 newDF2.describe();
 
 newDF2.scatterPlot("gre", "gre2");
@@ -159,6 +158,102 @@ id                  admit               gre                 gpa                 
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          ACTIVE              409600.0            
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE            270400.0            
 
+// Slice dataset by row number
+Dataframe sliceDF = myDF.sliceRows(396, myDF.getNrows());
+sliceDF.describe();
 
+Dataframe with 26 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 
+
+50                  0                   400                 3.35                3                   Inactive            Female              2011-12-10          
+51                  0                   640                 3.86                3                   Active              Male                2011-12-17          
+52                  0                   440                 3.13                4                   Inactive            Female              2011-12-24          
+53                  0                   740                 3.37                4                   Active              Male                2011-12-31          
+54                  1                   680                 3.27                2                   Inactive            Male                2012-01-07 
+
+// Filter to records where gender is "Female"
+Dataframe females = myDF.filterRows("gender", "=", "Female");
+females.describe();
+females.freqCounts("gender");
+
+Dataframe with 160 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 
+
+2                   1                   660                 3.67                3                   Inactive            Female              2011-01-08          
+5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          
+6                   1                   760                 3                   2                   Other               Female              2011-02-05          
+10                  0                   700                 3.92                2                   Active              Female              2011-03-05          
+12                  0                   440                 3.22                1                   Other               Female              2011-03-19 
+
+Frequency counts for 'gender': {Female=160}
+
+// Filter females to records with status "Other"
+Dataframe femalesOther = females.filterRows("status", "=", "Other");
+femalesOther.describe();
+femalesOther.freqCounts("gender");
+femalesOther.freqCounts("status");
+
+Dataframe with 48 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 
+
+6                   1                   760                 3                   2                   Other               Female              2011-02-05          
+12                  0                   440                 3.22                1                   Other               Female              2011-03-19          
+15                  1                   700                 4                   1                   Other               Female              2011-04-09          
+30                  0                   520                 3.29                1                   Other               Female              2011-07-23          
+32                  0                   760                 3.35                3                   Other               Female              2011-08-06          
+
+Frequency counts for 'gender': {Female=48}
+
+Frequency counts for 'status': {Other=48}
+
+// Filter to records where gre is >= 580
+Dataframe gre580 = myDF.filterRows("gre", ">=", 580);
+gre580.describe();
+gre580.univStats("gre");
+
+Dataframe with 226 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 
+
+2                   1                   660                 3.67                3                   Inactive            Female              2011-01-08          
+3                   1                   800                 4                   1                   Other               Male                2011-01-15          
+4                   1                   640                 3.19                4                   Active              Male                2011-01-22          
+6                   1                   760                 3                   2                   Other               Female              2011-02-05          
+10                  0                   700                 3.92                2                   Active              Female              2011-03-05          
+
+Column: gre
+Type: num
+N: 226.0
+Sum: 151260.00
+Min: 580.0
+Pct25: 620.0
+Mean: 669.29
+Median: 660.0
+Pct75: 720.0
+Max: 800.0
+Std Dev: 68.98
 
 ```
