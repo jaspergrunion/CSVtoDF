@@ -14,6 +14,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -84,8 +85,99 @@ public class Dataframe {
         return newDF;
     }
 
+    public Dataframe sliceRows(int rowstart, int rowend){
+        int newDFrows = rowend - rowstart + 2;
+        String[][] newdataraw = new String[newDFrows][this.ncols];
+        for (int c = 0; c < this.ncols; c++) {
+            newdataraw[0][c] = dataraw[0][c];
+        }
+        for (int r = 1; r < newDFrows; r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                newdataraw[r][c] = this.dataraw[rowstart + r - 1][c];
+            }
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
+    public Dataframe filterRows(String colname, String oper, String value){
+        ArrayList<Integer> rowindex = new ArrayList<Integer>();
+        String[] filtercol = getStrCol(colname);
+        int newDFrows = 0;
+        for (int r = 0; r < this.nrows; r++) {
+            if (compareValsString(filtercol[r], oper, value)) {
+                rowindex.add(r);
+                newDFrows += 1;
+            }
+        }
+        String[][] newdataraw = new String[newDFrows + 1][this.ncols];
+
+        for (int c = 0; c < this.ncols; c++) {
+            newdataraw[0][c] = dataraw[0][c];
+        }
+        for (int r = 0; r < rowindex.size(); r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                newdataraw[r + 1][c] = dataraw[rowindex.get(r) + 1][c];
+            }
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
+    public Dataframe filterRows(String colname, String oper, double value){
+        ArrayList<Integer> rowindex = new ArrayList<Integer>();
+        double[] filtercol = getNumCol(colname);
+        int newDFrows = 0;
+        for (int r = 0; r < this.nrows; r++) {
+            if (compareValsDouble(filtercol[r], oper, value)) {
+                rowindex.add(r);
+                newDFrows += 1;
+            }
+        }
+        String[][] newdataraw = new String[newDFrows + 1][this.ncols];
+
+        for (int c = 0; c < this.ncols; c++) {
+            newdataraw[0][c] = dataraw[0][c];
+        }
+        for (int r = 0; r < rowindex.size(); r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                newdataraw[r + 1][c] = dataraw[rowindex.get(r) + 1][c];
+            }
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
+    private Boolean compareValsDouble(double a, String oper, double b){
+        Boolean ans = false;
+        if (oper.equals("==") || oper.equals("=")){
+            ans = (a == b);
+        } else if (oper.equals("<")) {
+            ans = (a < b);
+        } else if (oper.equals("<=")) {
+            ans = (a <= b);
+        } else if (oper.equals(">")) {
+            ans = (a > b);
+        } else if (oper.equals(">=")) {
+            ans = (a >= b);
+        } else if (oper.equals("!=")) {
+            ans = (a != b);
+        }
+        return ans;
+    }
+
+    public Boolean compareValsString(String a, String oper, String b){
+        Boolean ans = false;
+        if (oper.equals("==") || oper.equals("=")){
+            ans = (a.equals(b));
+        } else if (oper.equals("!=")) {
+            ans = !(a.equals(b));
+        }
+        return ans;
+    }
+
     public String[][] getData(){
-        return this.data;
+            return this.data;
     }
 
     public String[][] getDataRaw(){
@@ -262,6 +354,40 @@ public class Dataframe {
             }
             System.out.println();
         }
+        System.out.println();
+    }
+    // Print raw data array for troubleshooting
+    public void printDataRaw(){
+        int nrowsraw = this.dataraw.length;
+        printDataRaw(this.dataraw, nrowsraw);
+    }
+
+    public void printDataRaw(int rows){
+        printDataRaw(this.dataraw, rows);
+    }
+
+    public void printDataRaw(String[][] strmat) {
+        int nrowsraw = strmat.length;
+        printDataRaw(strmat, nrowsraw);
+    }
+
+    public void printDataRaw(String[][] strmat, int rows){
+        int nrowsraw = strmat.length;
+        int ncolsraw = strmat[0].length;
+        System.out.println("Raw String Data:");
+        System.out.println(nrowsraw + " rows");
+        System.out.println(ncolsraw + " columns");
+        System.out.println();
+        System.out.println("First " + rows +  " rows:");
+        System.out.println();
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < ncolsraw; c++) {
+                String outStr = String.format("%-20s", strmat[r][c]);
+                System.out.print(outStr);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     // Print a column by column number or name
@@ -280,7 +406,6 @@ public class Dataframe {
     }
 
     public void printCol(int colnum, int nrows) {
-        System.out.println();
         System.out.println(this.names[colnum]);
         System.out.println("<" + this.coltypes[colnum] + ">");
         System.out.println("[" + colnum + "]");
@@ -289,6 +414,7 @@ public class Dataframe {
         for (int r = 0; r < nrows; r++) {
             System.out.println(this.data[r][colnum]);
         }
+        System.out.println();
     }
 
     // Generate univariate statistics by column number or name
@@ -315,7 +441,6 @@ public class Dataframe {
         double myMax = descriptiveStatistics.getMax();
         double mySD = descriptiveStatistics.getStandardDeviation();
 
-        System.out.println();
         System.out.println("Column: " + getColName(colnum));
         System.out.println("Type: " + getColType(colnum));
         System.out.println("N: " + myN);
@@ -327,6 +452,7 @@ public class Dataframe {
         System.out.println("Pct75: " + myPct75);
         System.out.println("Max: " + myMax);
         System.out.println("Std Dev: " + String.format("%.2f", mySD));
+        System.out.println();
 
     }
 
@@ -350,8 +476,8 @@ public class Dataframe {
                 elementCountMap.put(i, 1);
             }
         }
-        System.out.println();
         System.out.println("Frequency counts for '" + getColName(colnum) + "': " + elementCountMap);
+        System.out.println();
     }
 
     // Print either univariate stats or frequency counts for every column in data

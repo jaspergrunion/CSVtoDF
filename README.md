@@ -20,10 +20,8 @@ Dataframe features:
 - Can generate xy scatterplots
 - Can generate a time series plot given a date column and a numeric column
 - Can create new column from transformation of existing columns and add to data frame
-    
-Future functionality:
-- Filtering
-- Aggregation by groups
+- Can slice rows of df with rowstart and rowend
+- Can filter rows by values of string columns    
 
 ```
 // Read from csv file
