@@ -158,7 +158,7 @@ id                  admit               gre                 gpa                 
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE            270400.0            
 
 // Slice dataset by row number
-Dataframe sliceDF = myDF.sliceRows(396, myDF.getNrows());
+Dataframe sliceDF = myDF.sliceRows(50, 75);
 sliceDF.describe();
 
 Dataframe with 26 rows and 8 columns
