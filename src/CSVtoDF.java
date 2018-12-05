@@ -83,6 +83,14 @@ public class CSVtoDF {
         Dataframe gre580 = myDF.filterRows("gre", ">=", 580);
         gre580.describe();
         gre580.univStats("gre");
+
+        // Random sampling of rows
+        Dataframe train = myDF.sampleRows("<=", .7, 1234);
+        train.describe();
+
+        Dataframe test = myDF.sampleRows(">", .7, 1234);
+        test.describe();
+
 //*/
 
     }

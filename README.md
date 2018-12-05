@@ -255,4 +255,42 @@ Pct75: 720.0
 Max: 800.0
 Std Dev: 68.98
 
+
+// Random sampling of rows
+Dataframe train = myDF.sampleRows("<=", .7, 1234);
+train.describe();
+
+Dataframe with 279 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 
+
+1                   0                   380                 3.61                3                   Active              Male                2011-01-01          
+4                   1                   640                 3.19                4                   Active              Male                2011-01-22          
+5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          
+6                   1                   760                 3                   2                   Other               Female              2011-02-05          
+7                   1                   560                 2.98                1                   Active              Male                2011-02-12          
+
+
+Dataframe test = myDF.sampleRows(">", .7, 1234);
+test.describe();
+
+Dataframe with 121 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 
+
+2                   1                   660                 3.67                3                   Inactive            Female              2011-01-08          
+3                   1                   800                 4                   1                   Other               Male                2011-01-15          
+9                   1                   540                 3.39                3                   Other               Male                2011-02-26          
+15                  1                   700                 4                   1                   Other               Female              2011-04-09          
+19                  0                   800                 3.75                2                   Active              Male                2011-05-07 
 ```

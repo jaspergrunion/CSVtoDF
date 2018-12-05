@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 import static java.awt.Color.BLACK;
 
@@ -130,6 +131,36 @@ public class Dataframe {
         int newDFrows = 0;
         for (int r = 0; r < this.nrows; r++) {
             if (compareValsDouble(filtercol[r], oper, value)) {
+                rowindex.add(r);
+                newDFrows += 1;
+            }
+        }
+        String[][] newdataraw = new String[newDFrows + 1][this.ncols];
+
+        for (int c = 0; c < this.ncols; c++) {
+            newdataraw[0][c] = dataraw[0][c];
+        }
+        for (int r = 0; r < rowindex.size(); r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                newdataraw[r + 1][c] = dataraw[rowindex.get(r) + 1][c];
+            }
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
+    public Dataframe sampleRows(String oper, double pct, int seed){
+        Random rand = new Random(seed);
+        double[] randcol = new double[this.nrows];
+        ArrayList<Integer> rowindex = new ArrayList<Integer>();
+        int newDFrows = 0;
+
+        for (int i = 0; i < this.nrows; i++) {
+            randcol[i] = rand.nextDouble();
+        }
+
+        for (int r = 0; r < this.nrows; r++) {
+            if (compareValsDouble(randcol[r], oper, pct)) {
                 rowindex.add(r);
                 newDFrows += 1;
             }
