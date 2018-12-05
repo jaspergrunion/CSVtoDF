@@ -23,6 +23,7 @@ Dataframe features:
 - Slice rows using startrow and endrow parameters
 - Filter rows by string column values
 - Filter rows by numeric columns with operators
+- Calculate correlation coefficient between two numeric columns
 
 ```
 // Read from csv file
