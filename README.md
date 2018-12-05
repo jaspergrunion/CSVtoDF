@@ -256,7 +256,6 @@ Pct75: 720.0
 Max: 800.0
 Std Dev: 68.98
 
-
 // Random sampling of rows
 Dataframe train = myDF.sampleRows("<=", .7, 1234);
 train.describe();
@@ -275,7 +274,6 @@ id                  admit               gre                 gpa                 
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          
 6                   1                   760                 3                   2                   Other               Female              2011-02-05          
 7                   1                   560                 2.98                1                   Active              Male                2011-02-12          
-
 
 Dataframe test = myDF.sampleRows(">", .7, 1234);
 test.describe();
