@@ -293,4 +293,12 @@ id                  admit               gre                 gpa                 
 9                   1                   540                 3.39                3                   Other               Male                2011-02-26          
 15                  1                   700                 4                   1                   Other               Female              2011-04-09          
 19                  0                   800                 3.75                2                   Active              Male                2011-05-07 
+
+// Correlation of two numeric columns
+myDF.corr("gre", "gpa");
+myDF.corr("gpa", "rank");
+
+Correlation of gre and gpa: 0.3842658780208496
+
+Correlation of gpa and rank: -0.05746076778557216
 ```

@@ -1,3 +1,4 @@
+import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -522,6 +523,15 @@ public class Dataframe {
                 freqCounts(c);
             }
         }
+    }
+
+    public void corr(String x, String y){
+        // Correlation of two numeric vectors
+        double[] xcol = getNumCol(x);
+        double[] ycol = getNumCol(y);
+        double corr = new PearsonsCorrelation().correlation(xcol, ycol);
+        System.out.println("Correlation of " + x + " and " + y + ": " + corr);
+        System.out.println();
     }
 
     // Create an xy scatter plot

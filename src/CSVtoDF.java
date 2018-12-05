@@ -1,3 +1,5 @@
+import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
+
 import java.util.Date;
 
 public class CSVtoDF {
@@ -90,6 +92,10 @@ public class CSVtoDF {
 
         Dataframe test = myDF.sampleRows(">", .7, 1234);
         test.describe();
+
+        // Correlation of two numeric columns
+        myDF.corr("gre", "gpa");
+        myDF.corr("gpa", "rank");
 
 //*/
 
