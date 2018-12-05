@@ -14,12 +14,12 @@ Java files:
 Dataframe features:
 - Columns scanned and defined either as string or numeric
 - Describe() shows data dimensions, column names, and prints first 5 rows
-- SummaryStats() will show univariate statistics for numeric columns, or a frequency table for string columns
+- SummaryStats() shows univariate statistics for numeric columns, or a frequency table for string columns
 - Columns can be accessed by column name or number
 - Date columns can be extracted based on format string
 - Can generate an x vs y scatterplot of two numeric columns
 - Can generate a time series plot given a date column and a numeric column
-- Can create new column from transformation of existing columns and add to data frame
+- Can add a new column to a dataframe
 - Can slice a dataframe by rows using startrow and endrow parameters
 - Can filter a dataframe by string column values
 - Can filter a dataframe by numeric columns with operators
