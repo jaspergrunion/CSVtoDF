@@ -13,7 +13,7 @@ Java files:
 - Dataframe.java - instantiates a dataframe object from a 2d string array
 - CSVtoDF.java - defines main method and shows example object calls
 
-Dataframe features:
+Features:
 - Columns scanned and defined either as string or numeric
 - Describe() shows data dimensions, column names, and prints first 5 rows
 - SummaryStats() shows univariate statistics for numeric columns or a frequency table for string columns
