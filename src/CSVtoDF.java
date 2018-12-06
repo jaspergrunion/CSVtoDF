@@ -10,7 +10,7 @@ public class CSVtoDF {
 
         // Instantiate data frame object
         Dataframe myDF = new Dataframe(rawDFmat);
-///*
+/*
         // Dataframe describe and print methods
         myDF.describe();
 
@@ -33,7 +33,7 @@ public class CSVtoDF {
         System.out.println("Value of status at position 354: " + status[354]);
         System.out.println();
 
-        // Extract a date column and print
+        // Extract a date column
         Date[] date = myDF.getDateCol("date", "yyyy-MM-dd");
 
         // Scatterplot of x vs y
@@ -93,10 +93,10 @@ public class CSVtoDF {
         // Correlation of two numeric columns
         myDF.corr("gre", "gpa");
         myDF.corr("gpa", "rank");
+//*/
 
         // Multivariate regression
         myDF.linearModel("admit", "gre", "gpa", "rank");
-//*/
 
     }
 
