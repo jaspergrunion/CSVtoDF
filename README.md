@@ -24,6 +24,7 @@ Dataframe features:
 - Filter rows by string column values
 - Filter rows by numeric columns with operators
 - Calculate correlation coefficient between two numeric columns
+- Multivariate regression of y on X
 
 ```
 // Read from csv file
@@ -300,4 +301,15 @@ myDF.corr("gpa", "rank");
 Correlation of gre and gpa: 0.3842658780208496
 
 Correlation of gpa and rank: -0.05746076778557216
+
+// Multivariate regression
+myDF.linearModel("admit", "gre", "gpa", "rank");
+
+Regression summary for [admit ~ gre + gpa + rank]:
+
+intercept: -0.18
+gre: 0.00
+gpa: 0.15
+rank: -0.11
+r-squared: 0.09
 ```

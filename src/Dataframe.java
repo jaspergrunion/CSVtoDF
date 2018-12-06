@@ -1,5 +1,6 @@
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -525,13 +526,59 @@ public class Dataframe {
         }
     }
 
+    // Correlation of two numeric vectors
     public void corr(String x, String y){
-        // Correlation of two numeric vectors
         double[] xcol = getNumCol(x);
         double[] ycol = getNumCol(y);
         double corr = new PearsonsCorrelation().correlation(xcol, ycol);
         System.out.println("Correlation of " + x + " and " + y + ": " + corr);
         System.out.println();
+    }
+
+    // Regression of y on X
+    public void linearModel(String y, String... X){
+        double[] ycol = getNumCol(y);
+        int numx = X.length;
+        double[][] Xmat = new double[this.nrows][numx];
+
+        for (int c = 0; c < numx; c++) {
+            double[] xcol = getNumCol(X[c]);
+            for (int r = 0; r < this.nrows; r++) {
+                Xmat[r][c] = xcol[r];
+            }
+        }
+
+        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();
+
+        regression.newSampleData(ycol, Xmat);
+        double[] beta = regression.estimateRegressionParameters();
+
+
+        System.out.print("Regression summary for [" + y + " ~ ");
+        for (int i = 0; i < numx; i++) {
+            if(i < (numx - 1)) {
+                System.out.print(X[i] + " + ");
+            } else {
+                System.out.print(X[i]);
+            }
+        }
+        System.out.print("]:");
+        System.out.println();
+        System.out.println();
+        for (int i = 0; i < beta.length ; i++) {
+            if (i == 0) {
+                System.out.print("intercept: " + String.format("%.2f", beta[i]));
+                System.out.println();
+            } else {
+                System.out.print(X[i-1] + ": " + String.format("%.2f", beta[i]));
+                System.out.println();
+            }
+        }
+
+        double r2 = regression.calculateAdjustedRSquared();
+        System.out.println("r-squared: " + String.format("%.2f", r2));
+        System.out.println();
+
     }
 
     // Create an xy scatter plot

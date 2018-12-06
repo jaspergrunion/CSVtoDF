@@ -10,7 +10,6 @@ public class CSVtoDF {
 
         // Instantiate data frame object
         Dataframe myDF = new Dataframe(rawDFmat);
-
 ///*
         // Dataframe describe and print methods
         myDF.describe();
@@ -95,6 +94,8 @@ public class CSVtoDF {
         myDF.corr("gre", "gpa");
         myDF.corr("gpa", "rank");
 
+        // Multivariate regression
+        myDF.linearModel("admit", "gre", "gpa", "rank");
 //*/
 
     }
