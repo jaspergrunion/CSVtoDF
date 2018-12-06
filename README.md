@@ -1,6 +1,8 @@
 # CSVtoDF
-Java framework to read CSV data into a Dataframe like object  
-Mimics some of the functionality of dataframes found in R and Python
+Overview
+- Java framework to read CSV data into a Dataframe like object  
+- Mimics some of the functionality of dataframes found in R and Python
+- Basic plotting, statistical summary and correlation and regression are enabled by default
 
 Dependencies: 
 - https://mvnrepository.com/artifact/org.apache.commons/commons-math3
