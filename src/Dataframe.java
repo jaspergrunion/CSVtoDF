@@ -567,16 +567,16 @@ public class Dataframe {
         System.out.println();
         for (int i = 0; i < beta.length ; i++) {
             if (i == 0) {
-                System.out.print("intercept: " + String.format("%.2f", beta[i]));
+                System.out.print("intercept: " + String.format("%.3f", beta[i]));
                 System.out.println();
             } else {
-                System.out.print(X[i-1] + ": " + String.format("%.2f", beta[i]));
+                System.out.print(X[i-1] + ": " + String.format("%.3f", beta[i]));
                 System.out.println();
             }
         }
 
         double r2 = regression.calculateAdjustedRSquared();
-        System.out.println("r-squared: " + String.format("%.2f", r2));
+        System.out.println("r-squared: " + String.format("%.3f", r2));
         System.out.println();
 
     }
