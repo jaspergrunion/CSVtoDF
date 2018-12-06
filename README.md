@@ -310,9 +310,9 @@ myDF.linearModel("admit", "gre", "gpa", "rank");
 
 Regression summary for [admit ~ gre + gpa + rank]:
 
-intercept: -0.18
-gre: 0.00
-gpa: 0.15
-rank: -0.11
-r-squared: 0.09
+intercept: -0.182
+gre: 0.000
+gpa: 0.151
+rank: -0.110
+r-squared: 0.089
 ```
