@@ -73,7 +73,7 @@ public class CSVtoDF {
         females.freqCounts("gender");
 
         // Filter females to records with status "Other"
-        Dataframe femalesOther = females.filterRows("status", "=", "Other");
+        Dataframe femalesOther = myDF.filterRows("gender", "=", "Female").filterRows("status", "=", "Other");
         femalesOther.describe();
         femalesOther.freqCounts("gender");
         femalesOther.freqCounts("status");
@@ -93,10 +93,11 @@ public class CSVtoDF {
         // Correlation of two numeric columns
         myDF.corr("gre", "gpa");
         myDF.corr("gpa", "rank");
-//*/
 
         // Multivariate regression
         myDF.linearModel("admit", "gre", "gpa", "rank");
+//*/
+
 
     }
 

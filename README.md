@@ -204,11 +204,11 @@ id                  admit               gre                 gpa                 
 Frequency counts for 'gender': {Female=160}
 
 // Filter females to records with status "Other"
-Dataframe femalesOther = females.filterRows("status", "=", "Other");
+Dataframe femalesOther = myDF.filterRows("gender", "=", "Female").filterRows("status", "=", "Other");
 femalesOther.describe();
 femalesOther.freqCounts("gender");
 femalesOther.freqCounts("status");
-
+ 
 Dataframe with 48 rows and 8 columns
 Column names: [id, admit, gre, gpa, rank, status, gender, date]
 
