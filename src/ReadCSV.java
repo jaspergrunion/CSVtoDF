@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ReadCSV {
 
-    public static String[][] getRawDF(String fileref) {
+    public static String[][] readRawDF(String fileref) {
 
         ArrayList<String[]> rawDF = new ArrayList<>();
 

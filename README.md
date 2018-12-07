@@ -14,6 +14,7 @@ Java files:
 - CSVtoDF.java - defines main method and shows example object calls
 
 Features:
+- Read from and write to csv files
 - Columns scanned and defined either as string or numeric
 - Describe() shows data dimensions, column names, and prints first 5 rows
 - SummaryStats() shows univariate statistics for numeric columns or a frequency table for string columns

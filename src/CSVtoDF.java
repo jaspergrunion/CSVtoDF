@@ -1,15 +1,17 @@
+import java.io.IOException;
 import java.util.Date;
 
 public class CSVtoDF {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // Read from csv file
-        String fileref = "/Users/jlgunnin/Downloads/testfile.csv";
-        String[][] rawDFmat = ReadCSV.getRawDF(fileref);
+        String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testfile.csv";
+        String[][] rawDFmat = ReadCSV.readRawDF(fileref);
 
         // Instantiate data frame object
         Dataframe myDF = new Dataframe(rawDFmat);
+
 ///*
         // Dataframe describe and print methods
         myDF.describe();
@@ -98,6 +100,9 @@ public class CSVtoDF {
         myDF.linearModel("admit", "gre", "gpa", "rank");
 //*/
 
+        // Output to csv
+        String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+        femalesOther.writeCSV(outref);
 
     }
 

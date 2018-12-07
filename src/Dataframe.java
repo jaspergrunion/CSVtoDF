@@ -14,6 +14,9 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -645,5 +648,22 @@ public class Dataframe {
 
     }
 
+    public void writeCSV(String outref) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(outref));
+
+        for (int r = 0; r < this.nrows + 1; r++) {
+            for (int c = 0; c < this.ncols; c++) {
+                if (c < this.ncols - 1) {
+                    bw.write(this.dataraw[r][c] + ",");
+                } else {
+                    bw.write(this.dataraw[r][c]);
+                }
+            }
+            bw.newLine();
+        }
+        bw.close();
+    }
+
 }
+
 
