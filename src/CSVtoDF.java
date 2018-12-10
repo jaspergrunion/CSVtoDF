@@ -9,10 +9,8 @@ public class CSVtoDF {
         String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
         Dataframe myDF = Dataframe.readCSV(fileref);
 
-        // Dataframe describe and method
-        myDF.describe();
-/*
-        // Dataframe describe and print methods
+///*
+        // Dataframe describe method
         myDF.describe();
 
         // Summary statistics and frequency tables for all columns
@@ -101,7 +99,7 @@ public class CSVtoDF {
 
         // Output to csv
         String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
-        myDF.writeCSV(outref);
+        femalesOther.writeCSV(outref);
 
     }
 

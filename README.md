@@ -9,8 +9,8 @@ Dependencies:
 - https://mvnrepository.com/artifact/org.jfree/jfreechart
 
 Java files:
-- Dataframe.java - defines a Dataframe object and useful associated methods
 - CSVtoDF.java - defines main method and shows example object calls
+- Dataframe.java - defines a Dataframe object and useful associated methods
 
 Features:
 - Read from and write to csv files
@@ -37,7 +37,7 @@ String[][] rawDFmat = ReadCSV.getRawDF(fileref);
 // Instantiate data frame object
 Dataframe myDF = new Dataframe(rawDFmat);
 
-// Dataframe describe and print method
+// Dataframe describe method
 myDF.describe();
 
 Dataframe with 400 rows and 8 columns
