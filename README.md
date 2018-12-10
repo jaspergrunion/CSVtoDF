@@ -130,7 +130,8 @@ id                  admit               gre                 gpa                 
 double[] gre = myDF.getNumCol("gre");
 double[] gre2 = new double[gre.length];
 for (int r = 0; r < myDF.getNrows(); r++) {
-    gre2[r] = Math.pow(gre[r], 2); } Dataframe newDF2 = newDF.addCol(gre2, "gre2");
+    gre2[r] = Math.pow(gre[r], 2); }
+Dataframe newDF2 = newDF.addCol(gre2, "gre2");
 newDF2.describe();
 newDF2.scatterPlot("gre", "gre2");
 
