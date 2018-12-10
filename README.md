@@ -152,10 +152,10 @@ id                  admit               gre                 gpa                 
 // Add column which is the cumulative sum of another
 double[] gre = myDF.getNumCol("gre");
 double[] grecumul = new double[gre.length];
-double cumsum = 0;
+double cumulsum = 0;
 for (int i = 0; i < gre.length; i++) {
-    cumsum += gre[i];
-    grecumul[i] = cumsum;
+    cumulsum += gre[i];
+    grecumul[i] = cumulsum;
 }
 Dataframe cumulDF = myDF.addCol(grecumul, "grecumul");
 cumulDF.describe();
