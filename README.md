@@ -109,7 +109,6 @@ for (int r = 0; r < myDF.getNrows(); r++) {
     status2[r] = status[r].toUpperCase();
 }
 Dataframe newDF = myDF.addCol(status2, "status2");
-System.out.println();
 newDF.describe();
 
 Dataframe with 400 rows and 9 columns

@@ -9,7 +9,7 @@ public class CSVtoDF {
         String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
         Dataframe myDF = Dataframe.readCSV(fileref);
 
-///*
+/*
         // Dataframe describe method
         myDF.describe();
 
