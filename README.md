@@ -14,29 +14,26 @@ Java files:
 
 Features:
 - Read from and write to csv files
-- Columns scanned and defined either as string or numeric
-- Describe() shows data dimensions, column names, and prints first 5 rows
-- SummaryStats() shows univariate statistics for numeric columns or a frequency table for string columns
+- Scan columns and define as either string or numeric
+- Print data dimensions, column names and first 5 rows
+- Univariate statistics for numeric columns
+- Frequency table for string columns
 - Column access by column name or number
-- Date columns can be extracted based on format string
-- Add a new column to the end of a dataframe
+- Extract date columns with a format string
+- Add a new column
 - Select subset of columns or reorder
-- Slice rows using startrow and endrow parameters
-- Filter rows by string column values
-- Filter rows by numeric columns with operators
-- Create an x vs y scatterplot of two numeric columns
-- Create a time series plot given a date column and a numeric column
+- Slice rows using startrow, endrow parameters
+- Filter rows by string column values or by numeric columns with operators
 - Randomly sample rows for train, test partitioning
+- Create an x vs y scatter plot of two numeric columns
+- Create a time series plot given a date column and a numeric column
 - Calculate correlation coefficient between two numeric columns
 - Multivariate regression of y on X
 
 ```
-// Read from csv file
-String fileref = "/Users/jlgunnin/Downloads/testfile.csv";
-String[][] rawDFmat = ReadCSV.getRawDF(fileref);
-
-// Instantiate data frame object
-Dataframe myDF = new Dataframe(rawDFmat);
+// Create data frame from csv file
+String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
+Dataframe myDF = Dataframe.readCSV(fileref);
 
 // Dataframe describe method
 myDF.describe();
@@ -213,7 +210,7 @@ id                  admit               gre                 gpa                 
 
 Frequency counts for 'gender': {Female=160}
 
-// Filter females to records with status "Other"
+// Filter to "Female" with status "Other"
 Dataframe femalesOther = myDF.filterRows("gender", "=", "Female").filterRows("status", "=", "Other");
 femalesOther.describe();
 femalesOther.freqCounts("gender");
@@ -237,6 +234,10 @@ id                  admit               gre                 gpa                 
 Frequency counts for 'gender': {Female=48}
 
 Frequency counts for 'status': {Other=48}
+
+// Output to csv
+String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+femalesOther.writeCSV(outref);
 
 // Filter to records where gre is >= 580
 Dataframe gre580 = myDF.filterRows("gre", ">=", 580);
@@ -270,13 +271,24 @@ Pct75: 720.0
 Max: 800.0
 Std Dev: 68.98
 
-// Scatter plots
-myDF.scatterPlot("gre", "gpa");
-myDF.scatterPlot("gre", "rank");
+// Select and filter in one line
+Dataframe smallDF = myDF.selectColumns("id", "admit", "gre", "gpa").filterRows("gre", "=", 800);
+smallDF.describe();
 
-// Time series plots
-myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
-myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
+Dataframe with 25 rows and 4 columns
+Column names: [id, admit, gre, gpa]
+
+First 5 rows:
+
+id                  admit               gre                 gpa
+<num>               <num>               <num>               <num>
+[0]                 [1]                 [2]                 [3]
+
+3                   1                   800                 4
+11                  0                   800                 4
+19                  0                   800                 3.75
+26                  1                   800                 3.66
+34                  1                   800                 4
 
 // Random sampling of rows
 Dataframe train = myDF.sampleRows("<=", .7, 1234);
@@ -315,6 +327,14 @@ id                  admit               gre                 gpa                 
 15                  1                   700                 4                   1                   Other               Female              2011-04-09          
 19                  0                   800                 3.75                2                   Active              Male                2011-05-07 
 
+// Scatter plots
+myDF.scatterPlot("gre", "gpa");
+myDF.scatterPlot("gre", "rank");
+
+// Time series plots
+myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
+myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
+
 // Correlation of two numeric columns
 myDF.corr("gre", "gpa");
 myDF.corr("gpa", "rank");
@@ -334,7 +354,4 @@ gpa: 0.151
 rank: -0.110
 r-squared: 0.089
 
-// Output to csv
-String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
-myDF.writeCSV(outref);
 ```

@@ -75,7 +75,7 @@ public class CSVtoDF {
         females.describe();
         females.freqCounts("gender");
 
-        // Filter females to records with status "Other"
+        // Filter to "Female" with status "Other"
         Dataframe femalesOther = myDF.filterRows("gender", "=", "Female").filterRows("status", "=", "Other");
         femalesOther.describe();
         femalesOther.freqCounts("gender");
@@ -89,6 +89,10 @@ public class CSVtoDF {
         Dataframe gre580 = myDF.filterRows("gre", ">=", 580);
         gre580.describe();
         gre580.univStats("gre");
+
+        // Select and filter in one line
+        Dataframe smallDF = myDF.selectColumns("id", "admit", "gre", "gpa").filterRows("gre", "=", 800);
+        smallDF.describe();
 
         // Random sampling of rows
         Dataframe train = myDF.sampleRows("<=", .7, 1234);
@@ -104,7 +108,6 @@ public class CSVtoDF {
         // Multivariate regression
         myDF.linearModel("admit", "gre", "gpa", "rank");
 //*/
-
 
     }
 
