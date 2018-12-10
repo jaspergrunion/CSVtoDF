@@ -128,7 +128,7 @@ id                  admit               gre                 gpa                 
 
 // Add column which is gre squared and then graph
 double[] gre = myDF.getNumCol("gre");
-double[] gre2 = new double[myDF.getNrows()];
+double[] gre2 = new double[gre.length];
 for (int r = 0; r < myDF.getNrows(); r++) {
     gre2[r] = Math.pow(gre[r], 2); } Dataframe newDF2 = newDF.addCol(gre2, "gre2");
 newDF2.describe();
@@ -148,6 +148,32 @@ id                  admit               gre                 gpa                 
 3                   1                   800                 4                   1                   Other               Male                2011-01-15          OTHER               640000.0            
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          ACTIVE              409600.0            
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE            270400.0            
+
+// Add column which is the cumulative sum of another
+double[] gre = myDF.getNumCol("gre");
+double[] grecumul = new double[gre.length];
+double cumsum = 0;
+for (int i = 0; i < gre.length; i++) {
+    cumsum += gre[i];
+    grecumul[i] = cumsum;
+}
+Dataframe cumulDF = myDF.addCol(grecumul, "grecumul");
+cumulDF.describe();
+
+Dataframe with 400 rows and 9 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date, grecumul]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date                grecumul
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>               <num>
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]                 [8]
+
+1                   0                   380                 3.61                3                   Active              Male                2011-01-01          380.0
+2                   1                   660                 3.67                3                   Inactive            Female              2011-01-08          1040.0
+3                   1                   800                 4                   1                   Other               Male                2011-01-15          1840.0
+4                   1                   640                 3.19                4                   Active              Male                2011-01-22          2480.0
+5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          3000.0
 
 // Select subset of columns or reorder
 Dataframe myDF2 = myDF.selectColumns("id", "admit", "gre", "gpa");

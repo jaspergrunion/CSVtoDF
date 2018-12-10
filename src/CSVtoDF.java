@@ -1,4 +1,8 @@
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 public class CSVtoDF {
@@ -53,7 +57,7 @@ public class CSVtoDF {
 
         // Add column which is gre squared and then graph
         double[] gre = myDF.getNumCol("gre");
-        double[] gre2 = new double[myDF.getNrows()];
+        double[] gre2 = new double[gre.length];
         for (int r = 0; r < myDF.getNrows(); r++) {
             gre2[r] = Math.pow(gre[r], 2);
         }
@@ -61,6 +65,16 @@ public class CSVtoDF {
         newDF2.describe();
 
         newDF2.scatterPlot("gre", "gre2");
+
+        // Add column which is the cumulative sum of gre
+        double[] grecumul = new double[gre.length];
+        double cumsum = 0;
+        for (int i = 0; i < gre.length; i++) {
+            cumsum += gre[i];
+            grecumul[i] = cumsum;
+        }
+        Dataframe cumulDF = myDF.addCol(grecumul, "grecumul");
+        cumulDF.describe();
 
         // Select subset of columns or reorder
         Dataframe myDF2 = myDF.selectColumns("id", "admit", "gre", "gpa");
