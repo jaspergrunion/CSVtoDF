@@ -21,7 +21,7 @@ Features:
 - Column access by column name or number
 - Extract date columns with a format string
 - Add a new column
-- Select subset of columns or reorder
+- Select or reorder columns
 - Slice rows using startrow, endrow parameters
 - Filter rows by string column values or by numeric columns with operators
 - Randomly sample rows for train, test partitioning
