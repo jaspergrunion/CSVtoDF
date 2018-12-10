@@ -149,7 +149,7 @@ id                  admit               gre                 gpa                 
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          ACTIVE              409600.0            
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE            270400.0            
 
-// Add column which is the cumulative sum of another
+// Add column which is the cumulative sum of gre
 double[] gre = myDF.getNumCol("gre");
 double[] grecumul = new double[gre.length];
 double cumulsum = 0;
