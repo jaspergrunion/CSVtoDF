@@ -9,8 +9,7 @@ Dependencies:
 - https://mvnrepository.com/artifact/org.jfree/jfreechart
 
 Java files:
-- ReadCSV.java: reads in a comma delimited file and creates a 2d string array from it
-- Dataframe.java - instantiates a dataframe object from a 2d string array
+- Dataframe.java - defines a Dataframe object and useful associated methods
 - CSVtoDF.java - defines main method and shows example object calls
 
 Features:
@@ -316,4 +315,8 @@ gre: 0.000
 gpa: 0.151
 rank: -0.110
 r-squared: 0.089
+
+// Output to csv
+String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+myDF.writeCSV(outref);
 ```

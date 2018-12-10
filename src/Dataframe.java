@@ -14,9 +14,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -646,6 +644,30 @@ public class Dataframe {
         frame.pack();
         frame.setVisible(true);
 
+    }
+
+    public static Dataframe readCSV(String fileref) {
+
+        ArrayList<String[]> rawDF = new ArrayList<>();
+
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(fileref))) {
+            while ((line = br.readLine()) != null) {
+                String[] linelist = line.split(",");
+                for (int l = 0; l < linelist.length; l++) {
+                    linelist[l] = linelist[l].replace("\"", "").trim();
+                }
+                rawDF.add(linelist);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String[][] rawDFmat = new String[rawDF.size()][];
+        rawDF.toArray(rawDFmat);
+
+        Dataframe outDF = new Dataframe(rawDFmat);
+        return outDF;
     }
 
     public void writeCSV(String outref) throws IOException {

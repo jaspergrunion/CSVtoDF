@@ -5,14 +5,13 @@ public class CSVtoDF {
 
     public static void main(String[] args) throws IOException {
 
-        // Read from csv file
-        String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testfile.csv";
-        String[][] rawDFmat = ReadCSV.readRawDF(fileref);
+        // Create data frame from csv file
+        String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
+        Dataframe myDF = Dataframe.readCSV(fileref);
 
-        // Instantiate data frame object
-        Dataframe myDF = new Dataframe(rawDFmat);
-
-///*
+        // Dataframe describe and method
+        myDF.describe();
+/*
         // Dataframe describe and print methods
         myDF.describe();
 
@@ -102,7 +101,7 @@ public class CSVtoDF {
 
         // Output to csv
         String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
-        femalesOther.writeCSV(outref);
+        myDF.writeCSV(outref);
 
     }
 
