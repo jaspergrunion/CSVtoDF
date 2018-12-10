@@ -62,6 +62,10 @@ public class CSVtoDF {
 
         newDF2.scatterPlot("gre", "gre2");
 
+        // Select subset of columns or reorder
+        Dataframe myDF2 = myDF.selectColumns("id", "admit", "gre", "gpa");
+        myDF2.describe();
+
         // Slice dataset by row number
         Dataframe sliceDF = myDF.sliceRows(50, 75);
         sliceDF.describe();
@@ -76,6 +80,10 @@ public class CSVtoDF {
         femalesOther.describe();
         femalesOther.freqCounts("gender");
         femalesOther.freqCounts("status");
+
+        // Output to csv
+        String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+        femalesOther.writeCSV(outref);
 
         // Filter to records where gre is >= 580
         Dataframe gre580 = myDF.filterRows("gre", ">=", 580);
@@ -97,9 +105,6 @@ public class CSVtoDF {
         myDF.linearModel("admit", "gre", "gpa", "rank");
 //*/
 
-        // Output to csv
-        String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
-        femalesOther.writeCSV(outref);
 
     }
 

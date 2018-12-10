@@ -89,6 +89,20 @@ public class Dataframe {
         return newDF;
     }
 
+    public Dataframe selectColumns(String... colnames){
+        int numcols = colnames.length;
+        String[][] newdataraw = new String[this.nrows + 1][numcols];
+        for (int c = 0; c < numcols; c++) {
+            String[] xcol = getStrCol(colnames[c]);
+            newdataraw[0][c] = colnames[c];
+            for (int r = 1; r < this.nrows + 1; r++) {
+                    newdataraw[r][c] = xcol[r-1];
+            }
+        }
+        Dataframe newDF = new Dataframe(newdataraw);
+        return newDF;
+    }
+
     public Dataframe sliceRows(int rowstart, int rowend){
         int newDFrows = rowend - rowstart + 2;
         String[][] newdataraw = new String[newDFrows][this.ncols];

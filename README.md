@@ -19,12 +19,13 @@ Features:
 - SummaryStats() shows univariate statistics for numeric columns or a frequency table for string columns
 - Column access by column name or number
 - Date columns can be extracted based on format string
-- Create an x vs y scatterplot of two numeric columns
-- Create a time series plot given a date column and a numeric column
 - Add a new column to the end of a dataframe
+- Select subset of columns or reorder
 - Slice rows using startrow and endrow parameters
 - Filter rows by string column values
 - Filter rows by numeric columns with operators
+- Create an x vs y scatterplot of two numeric columns
+- Create a time series plot given a date column and a numeric column
 - Randomly sample rows for train, test partitioning
 - Calculate correlation coefficient between two numeric columns
 - Multivariate regression of y on X
@@ -105,14 +106,6 @@ Value of status at position 354: Active
 // Date column access
 Date[] date = myDF.getDateCol("date", "yyyy-MM-dd");
 
-// Scatter plots
-myDF.scatterPlot("gre", "gpa");
-myDF.scatterPlot("gre", "rank");
-
-// Time series plots
-myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
-myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
-
 // Add column which is the uppercase of the status column
 String[] status2 = new String[myDF.getNrows()];
 for (int r = 0; r < myDF.getNrows(); r++) {
@@ -141,9 +134,7 @@ id                  admit               gre                 gpa                 
 double[] gre = myDF.getNumCol("gre");
 double[] gre2 = new double[myDF.getNrows()];
 for (int r = 0; r < myDF.getNrows(); r++) {
-    gre2[r] = Math.pow(gre[r], 2);
-}
-Dataframe newDF2 = newDF.addCol(gre2, "gre2");
+    gre2[r] = Math.pow(gre[r], 2); } Dataframe newDF2 = newDF.addCol(gre2, "gre2");
 newDF2.describe();
 newDF2.scatterPlot("gre", "gre2");
 
@@ -161,6 +152,25 @@ id                  admit               gre                 gpa                 
 3                   1                   800                 4                   1                   Other               Male                2011-01-15          OTHER               640000.0            
 4                   1                   640                 3.19                4                   Active              Male                2011-01-22          ACTIVE              409600.0            
 5                   0                   520                 2.93                4                   Inactive            Female              2011-01-29          INACTIVE            270400.0            
+
+// Select subset of columns or reorder
+Dataframe myDF2 = myDF.selectColumns("id", "admit", "gre", "gpa");
+myDF2.describe();
+
+Dataframe with 400 rows and 4 columns
+Column names: [id, admit, gre, gpa]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 
+<num>               <num>               <num>               <num>               
+[0]                 [1]                 [2]                 [3]                 
+
+1                   0                   380                 3.61                
+2                   1                   660                 3.67                
+3                   1                   800                 4                   
+4                   1                   640                 3.19                
+5                   0                   520                 2.93     
 
 // Slice dataset by row number
 Dataframe sliceDF = myDF.sliceRows(50, 75);
@@ -259,6 +269,14 @@ Median: 660.0
 Pct75: 720.0
 Max: 800.0
 Std Dev: 68.98
+
+// Scatter plots
+myDF.scatterPlot("gre", "gpa");
+myDF.scatterPlot("gre", "rank");
+
+// Time series plots
+myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gpa");
+myDF.timeSeriesPlot("date", "yyyy-MM-dd", "gre");
 
 // Random sampling of rows
 Dataframe train = myDF.sampleRows("<=", .7, 1234);
