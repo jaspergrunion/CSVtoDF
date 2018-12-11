@@ -1,4 +1,4 @@
-# CSVtoDF
+# Java Dataframe
 Overview
 - Java framework to read CSV data into a Dataframe like object  
 - Mimics some of the functionality of dataframes found in R and Python
@@ -9,7 +9,7 @@ Dependencies:
 - https://mvnrepository.com/artifact/org.jfree/jfreechart
 
 Java files:
-- CSVtoDF.java - defines main method and shows example object calls
+- Main.java - defines main method and shows example object calls
 - Dataframe.java - defines a Dataframe object and useful associated methods
 
 Features:
@@ -32,7 +32,7 @@ Features:
 
 ```
 // Create data frame from csv file
-String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
+String fileref = "/Users/jlgunnin/IdeaProjects/Main/testin.csv";
 Dataframe myDF = Dataframe.readCSV(fileref);
 
 // Dataframe describe method
@@ -262,7 +262,7 @@ Frequency counts for 'gender': {Female=48}
 Frequency counts for 'status': {Other=48}
 
 // Output to csv
-String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+String outref = "/Users/jlgunnin/IdeaProjects/Main/testout.csv";
 femalesOther.writeCSV(outref);
 
 // Filter to records where gre is >= 580

@@ -1,17 +1,12 @@
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 
-public class CSVtoDF {
+public class Main {
 
     public static void main(String[] args) throws IOException {
 
         // Create data frame from csv file
-        String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
+        String fileref = "/Users/jlgunnin/IdeaProjects/Main/testin.csv";
         Dataframe myDF = Dataframe.readCSV(fileref);
 
 ///*
@@ -97,7 +92,7 @@ public class CSVtoDF {
         femalesOther.freqCounts("status");
 
         // Output to csv
-        String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+        String outref = "/Users/jlgunnin/IdeaProjects/Main/testout.csv";
         femalesOther.writeCSV(outref);
 
         // Filter to records where gre is >= 580
