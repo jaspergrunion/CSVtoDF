@@ -24,6 +24,7 @@ Features:
 - Select or reorder columns
 - Slice rows using startrow, endrow parameters
 - Filter rows by string column values or by numeric columns with operators
+- Sort by a single numeric or string column
 - Randomly sample rows for train, test partitioning
 - Create an x vs y scatter plot of two numeric columns
 - Create a time series plot given a date column and a numeric column
