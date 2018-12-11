@@ -3,6 +3,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 public class CSVtoDF {
@@ -122,6 +123,18 @@ public class CSVtoDF {
         // Multivariate regression
         myDF.linearModel("admit", "gre", "gpa", "rank");
 //*/
+
+        // Sort by numeric column
+        Dataframe gpaSortDF = myDF.sortByNumCol("gpa");
+        gpaSortDF.describe();
+
+        // Sort descending by numeric column
+        Dataframe greSortDF = myDF.sortByNumCol("gre", true);
+        greSortDF.describe();
+
+        // Sort by string column
+        Dataframe statusSortDF = myDF.sortByStrCol("status");
+        statusSortDF.describe();
 
     }
 

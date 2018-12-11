@@ -17,10 +17,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 import static java.awt.Color.BLACK;
 
@@ -66,8 +63,7 @@ public class Dataframe {
         for (int r = 1; r < this.nrows + 1; r++) {
             newdataraw[r][this.ncols] = colToAdd[r-1];
         }
-        Dataframe newDF = new Dataframe(newdataraw);
-        return newDF;
+        return new Dataframe(newdataraw);
     }
 
     public Dataframe addCol(double[] colToAdd, String colName){
@@ -85,8 +81,7 @@ public class Dataframe {
         for (int r = 1; r < this.nrows + 1; r++) {
             newdataraw[r][this.ncols] = colToAddStr[r-1];
         }
-        Dataframe newDF = new Dataframe(newdataraw);
-        return newDF;
+        return new Dataframe(newdataraw);
     }
 
     public Dataframe selectColumns(String... colnames){
@@ -99,8 +94,7 @@ public class Dataframe {
                     newdataraw[r][c] = xcol[r-1];
             }
         }
-        Dataframe newDF = new Dataframe(newdataraw);
-        return newDF;
+        return new Dataframe(newdataraw);
     }
 
     public Dataframe sliceRows(int rowstart, int rowend){
@@ -114,8 +108,7 @@ public class Dataframe {
                 newdataraw[r][c] = this.dataraw[rowstart + r - 1][c];
             }
         }
-        Dataframe newDF = new Dataframe(newdataraw);
-        return newDF;
+        return new Dataframe(newdataraw);
     }
 
     public Dataframe filterRows(String colname, String oper, String value){
@@ -138,8 +131,7 @@ public class Dataframe {
                 newdataraw[r + 1][c] = dataraw[rowindex.get(r) + 1][c];
             }
         }
-        Dataframe newDF = new Dataframe(newdataraw);
-        return newDF;
+        return new Dataframe(newdataraw);
     }
 
     public Dataframe filterRows(String colname, String oper, double value){
@@ -162,8 +154,98 @@ public class Dataframe {
                 newdataraw[r + 1][c] = dataraw[rowindex.get(r) + 1][c];
             }
         }
-        Dataframe newDF = new Dataframe(newdataraw);
+        return new Dataframe(newdataraw);
+    }
+
+    public Dataframe sortByNumCol(String colname){
+        Dataframe newDF =  sortByNumCol(colname, false);
         return newDF;
+    }
+
+    public Dataframe sortByNumCol(String colname, Boolean descending){
+        double[] sortcol = getNumCol(colname);
+        double[][] withind = new double[sortcol.length][2];
+
+        for (int r = 0; r < sortcol.length; r++) {
+            withind[r][0] = sortcol[r];
+            withind[r][1] = r;
+        }
+
+        if (descending == true){
+            Arrays.sort(withind, Comparator.comparing((double[] arr) -> arr[0]).reversed());
+        } else {
+            Arrays.sort(withind, Comparator.comparing((double[] arr) -> arr[0]));
+        }
+        int indloc[] = new int[withind.length];
+        for (int r = 0; r < withind.length; r++) {
+            indloc[r] = (int) withind[r][1];
+        }
+
+        String[][] data = this.data;
+        String[][] datasorted = new String[data.length][data[0].length];
+
+        for (int r = 0; r < datasorted.length; r++) {
+            for (int c = 0; c < datasorted[0].length; c++) {
+                datasorted[r][c] = data[indloc[r]][c];
+            }
+        }
+        String[][] newdataraw = new String[data.length + 1][data[0].length];
+
+        for (int c = 0; c < this.ncols; c++) {
+            newdataraw[0][c] = this.getDataRaw()[0][c];
+        }
+        for (int r = 1; r < newdataraw.length; r++) {
+            for (int c = 0; c < newdataraw[0].length; c++) {
+                newdataraw[r][c] = datasorted[r-1][c];
+            }
+        }
+        return new Dataframe(newdataraw);
+    }
+
+    public Dataframe sortByStrCol(String colname){
+        Dataframe newDF =  sortByStrCol(colname, false);
+        return newDF;
+    }
+
+    public Dataframe sortByStrCol(String colname, Boolean descending){
+        String[] sortcol = getStrCol(colname);
+        String[][] withind = new String[sortcol.length][2];
+
+        for (int r = 0; r < sortcol.length; r++) {
+            withind[r][0] = sortcol[r];
+            withind[r][1] = Integer.toString(r);
+        }
+
+        if (descending == true){
+            Arrays.sort(withind, Comparator.comparing((String[] arr) -> arr[0]).reversed());
+        } else {
+            Arrays.sort(withind, Comparator.comparing((String[] arr) -> arr[0]));
+        }
+
+        int indloc[] = new int[withind.length];
+        for (int r = 0; r < withind.length; r++) {
+            indloc[r] = Integer.parseInt(withind[r][1]);
+        }
+
+        String[][] data = this.data;
+        String[][] datasorted = new String[data.length][data[0].length];
+
+        for (int r = 0; r < datasorted.length; r++) {
+            for (int c = 0; c < datasorted[0].length; c++) {
+                datasorted[r][c] = data[indloc[r]][c];
+            }
+        }
+        String[][] newdataraw = new String[data.length + 1][data[0].length];
+
+        for (int c = 0; c < this.ncols; c++) {
+            newdataraw[0][c] = this.getDataRaw()[0][c];
+        }
+        for (int r = 1; r < newdataraw.length; r++) {
+            for (int c = 0; c < newdataraw[0].length; c++) {
+                newdataraw[r][c] = datasorted[r-1][c];
+            }
+        }
+        return new Dataframe(newdataraw);
     }
 
     public Dataframe sampleRows(String oper, double pct, int seed){
@@ -192,8 +274,7 @@ public class Dataframe {
                 newdataraw[r + 1][c] = dataraw[rowindex.get(r) + 1][c];
             }
         }
-        Dataframe newDF = new Dataframe(newdataraw);
-        return newDF;
+        return new Dataframe(newdataraw);
     }
 
     private Boolean compareValsDouble(double a, String oper, double b){
@@ -699,6 +780,7 @@ public class Dataframe {
         }
         bw.close();
     }
+
 
 }
 

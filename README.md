@@ -316,6 +316,63 @@ id                  admit               gre                 gpa
 26                  1                   800                 3.66
 34                  1                   800                 4
 
+// Sort by numeric column
+Dataframe gpaSortDF = myDF.sortByNumCol("gpa");
+gpaSortDF.describe();
+
+Dataframe with 400 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]
+
+290                 0                   420                 2.26                4                   Active              Female              2016-07-16
+41                  0                   560                 2.42                2                   Inactive            Male                2011-10-08
+373                 1                   680                 2.42                1                   Active              Male                2018-02-17
+49                  0                   440                 2.48                4                   Active              Male                2011-12-03
+157                 0                   560                 2.52                2                   Active              Male                2013-12-28
+
+// Sort descending by numeric column
+Dataframe greSortDF = myDF.sortByNumCol("gre", true);
+greSortDF.describe();
+
+Dataframe with 400 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]
+
+3                   1                   800                 4                   1                   Other               Male                2011-01-15
+11                  0                   800                 4                   4                   Inactive            Male                2011-03-12
+19                  0                   800                 3.75                2                   Active              Male                2011-05-07
+26                  1                   800                 3.66                1                   Inactive            Female              2011-06-25
+34                  1                   800                 4                   3                   Other               Male                2011-08-20
+
+// Sort by string column
+Dataframe statusSortDF = myDF.sortByStrCol("status");
+statusSortDF.describe();
+
+Dataframe with 400 rows and 8 columns
+Column names: [id, admit, gre, gpa, rank, status, gender, date]
+
+First 5 rows:
+
+id                  admit               gre                 gpa                 rank                status              gender              date
+<num>               <num>               <num>               <num>               <num>               <str>               <str>               <str>
+[0]                 [1]                 [2]                 [3]                 [4]                 [5]                 [6]                 [7]
+
+1                   0                   380                 3.61                3                   Active              Male                2011-01-01
+4                   1                   640                 3.19                4                   Active              Male                2011-01-22
+7                   1                   560                 2.98                1                   Active              Male                2011-02-12
+10                  0                   700                 3.92                2                   Active              Female              2011-03-05
+13                  1                   760                 4                   1                   Active              Male                2011-03-26
+
 // Random sampling of rows
 Dataframe train = myDF.sampleRows("<=", .7, 1234);
 train.describe();
