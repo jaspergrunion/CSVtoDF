@@ -117,7 +117,6 @@ public class Main {
 
         // Multivariate regression
         myDF.linearModel("admit", "gre", "gpa", "rank");
-//*/
 
         // Sort by numeric column
         Dataframe gpaSortDF = myDF.sortByNumCol("gpa");
@@ -130,6 +129,7 @@ public class Main {
         // Sort by string column
         Dataframe statusSortDF = myDF.sortByStrCol("status");
         statusSortDF.describe();
+//*/
 
     }
 
