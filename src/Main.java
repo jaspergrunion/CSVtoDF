@@ -6,10 +6,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         // Create data frame from csv file
-        String fileref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testin.csv";
+        String fileref = "/Users/jlgunnin/IdeaProjects/JavaDataframe/testin.csv";
         Dataframe myDF = Dataframe.readCSV(fileref);
 
-///*
+/*
         // Dataframe describe method
         myDF.describe();
 
@@ -92,7 +92,7 @@ public class Main {
         femalesOther.freqCounts("status");
 
         // Output to csv
-        String outref = "/Users/jlgunnin/IdeaProjects/CSVtoDF/testout.csv";
+        String outref = "/Users/jlgunnin/IdeaProjects/JavaDataframe/testout.csv";
         femalesOther.writeCSV(outref);
 
         // Filter to records where gre is >= 580
