@@ -1,0 +1,24 @@
+group 'gov.dhs.uscis.dhs.pcim'
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    // Maven repos using Nexus proxies
+    maven { url 'http://nexus-gss.uscis.dhs.gov/nexus/repository/VIS-Maven-Proxy' }
+    maven { url 'http://nexus-gss.uscis.dhs.gov/nexus/repository/SID-maven' }
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+
+    // https://mvnrepository.com/artifact/org.jfree/jfreechart
+    compile group: 'org.jfree', name: 'jfreechart', version: '1.5.0'
+
+}
