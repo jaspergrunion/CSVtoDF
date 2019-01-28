@@ -8,6 +8,10 @@ apply plugin: 'idea'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+sourceSets {
+    main.java.srcDirs = ['src']
+}
+
 repositories {
     // Maven repos using Nexus proxies
     maven { url 'http://nexus-gss.uscis.dhs.gov/nexus/repository/VIS-Maven-Proxy' }
